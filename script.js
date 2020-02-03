@@ -7,7 +7,6 @@ $(document).ready(function(){
     $("#city-search").on("click", function(event){
         event.preventDefault();
         $("#weather-display").empty();
-
         cities.push($("#user-search").val().trim());
         var city = $("<li>").text($("#user-search").val().trim());
         city.addClass("list-group-item");
@@ -24,7 +23,6 @@ $(document).ready(function(){
 
     $(document).on("click", ".list-group-item", function(){
         $("#weather-display").empty();
-
         getWeather($(this).attr("data-name"));
     })
 
@@ -38,9 +36,16 @@ $(document).ready(function(){
             method: "GET"
         }).then(function(response){
             console.log(response);
-            var imgURL = "http://openweathermap.org/img/wn/" + response.weather.icon + "@2x.png";
+            var imgURL = "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
+            var UVindexLon = response.coord.lon.toString();
+            var UVindexLat = response.coord.lat.toString();
+            
             $("#weather-display").append($("<h1>").text(moment().format("dddd, MMMM Do, YYYY")));
             $("#weather-display").append($("<h1>").text(response.name));
+            $("#weather-display").append($("<img>").attr("src", imgURL));
+            $("#weather-display").append($("<p>").text(response.main.temp));
+            $("#weather-display").append($("<p>").text(response.main.humidity));
+            $("#weather-display").append($("<p>").text(response.wind.speed));
         })
     }
 
