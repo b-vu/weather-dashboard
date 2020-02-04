@@ -18,7 +18,20 @@ html{
     font-size: 24px;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 1px solid white;
+}
+
+.card{
+    border: none;
+}
+
+.card-header{
+    background-color: rgb(6, 64, 173);
+    color: white;
+    text-align: center;
+}
+
+li:hover{
+    cursor: pointer;
 }
 
 .header{

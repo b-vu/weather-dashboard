@@ -6,18 +6,14 @@ $(document).ready(function(){
 
     $("#city-search").on("click", function(event){
         event.preventDefault();
-        
-        cities.push($("#user-search").val().trim());
-        var city = $("<li>").text($("#user-search").val().trim());
-        city.addClass("list-group-item");
-        city.attr("data-name", $("#user-search").val().trim());
-        $("#city-list").append(city);
+        if($("#user-search").val().trim() !== "" && $("#user-search").val().trim().length !== 1){
+            var city = $("#user-search").val().trim();
 
-        localStorage.setItem("cities", JSON.stringify(cities));
-
-        getWeather($("#user-search").val().trim());
-
-        console.log(cities);
+            getWeather(city);
+        }
+        else{
+            return;
+        }
     })
 
     $(document).on("click", ".list-group-item", function(){
@@ -25,9 +21,23 @@ $(document).ready(function(){
         getWeather($(this).attr("data-name"));
     })
 
+    function storeSearch(city){
+        if(cities.indexOf(city) === -1){
+            cities.push(city);
+            let cityLI = $("<li>").text(city);
+            cityLI.addClass("list-group-item");
+            cityLI.attr("data-name", city);
+            $("#city-list").append(cityLI);
+
+            localStorage.setItem("cities", JSON.stringify(cities));
+        }
+        else{
+            return;
+        }
+    }
+
     function getWeather(city){
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?appid=7203f3bd5c20ecf74e1a5452bc95d10f&q=" + city;
-        console.log(queryURL);
 
         $("#weather-display").empty();
 
@@ -47,6 +57,7 @@ $(document).ready(function(){
             $("#weather-display").append($("<p>").text("Humidity: " + response.main.humidity + "%"));
             $("#weather-display").append($("<p>").text("Wind Speed: " + (response.wind.speed * 2.237).toFixed(2) + " mph"));
 
+            storeSearch(response.name);
             getUVindex(UVindexLat, UVindexLon, response.name);
         })
     }
@@ -62,7 +73,7 @@ $(document).ready(function(){
             getWeather(cities[0]);
         }
         else{
-            $("#weather-display").text("Search for the weather in your city");
+            $("#weather-display").append($("<p>").text("Search for the weather in your city"));
             return;
         }
     }
@@ -94,20 +105,15 @@ $(document).ready(function(){
 
     function getForecast(city){
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?appid=7203f3bd5c20ecf74e1a5452bc95d10f&q=" + city;
-        console.log(queryURL);
         var icons = ["☀️", "☁️", "🌧️", "❄️"];
-        var forecastArray = [7, 15, 23, 31, 39]; //check optimal times
+        var forecastArray = [7, 15, 23, 31, 39];
         var calendarMonths = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
         var calendarDays = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
-        console.log(moment().format("M/D/YYYY"));
         var month = moment().format("M");
         var day = moment().format("D");
         var year = parseInt(moment().format("YYYY"));
         var dayCounter = calendarDays.indexOf(day);
         var monthCounter = calendarMonths.indexOf(month);
-        console.log(month, day, year);
-        console.log(monthCounter, dayCounter);
-        console.log(calendarDays.length, calendarDays[30]);
 
         $.ajax({
             url: queryURL,
@@ -122,11 +128,9 @@ $(document).ready(function(){
             for(i = 0; i < 5; i++){
                 if(Number.isInteger(year / 4) && month === "2"){
                     calendarDays.splice(29, 2);
-                    console.log(calendarDays)
                 }
                 else if(month === "2"){
                     calendarDays.splice(28, 3);
-                    console.log(calendarDays)
                 }
                 if(month === "4" || month === "6" || month === "9" || month === "11"){
                     calendarDays.splice(30, 1)
@@ -154,11 +158,10 @@ $(document).ready(function(){
                     if(month === "5" || month === "7" || month === "10" || month === "12"){
                         calendarDays.push("31");
                     }
-                    console.log("reset to 0")
                 }
 
                 let newDiv = $("<div>");
-                newDiv.attr("style", "height:200px; width:150px; background-color:blue; margin-bottom:5px; border: solid 1px white")
+                newDiv.attr("style", "height:200px; width:150px; background-color:blue; margin-bottom:5px; border: solid 1px white; border-radius:10px")
 
                 let date = $("<p>").text(month + "/" + calendarDays[dayCounter] + "/" + year);
 
