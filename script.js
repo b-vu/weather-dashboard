@@ -36,7 +36,7 @@ $(document).ready(function(){
             method: "GET"
         }).then(function(response){
             console.log(response);
-            var imgURL = "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
+            var imgURL = "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
             var UVindexLon = response.coord.lon.toString();
             var UVindexLat = response.coord.lat.toString();
             $("#weather-display").append($("<h1>").text(moment().format("dddd, MMMM Do, YYYY")));
