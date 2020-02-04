@@ -8,7 +8,6 @@ $(document).ready(function(){
         event.preventDefault();
         if($("#user-search").val().trim() !== "" && $("#user-search").val().trim().length !== 1){
             var city = $("#user-search").val().trim();
-
             getWeather(city);
         }
         else{

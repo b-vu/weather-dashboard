@@ -20,6 +20,15 @@ html{
     margin-bottom: 10px;
 }
 
+#user-search{
+    margin-bottom: 5px;
+}
+
+.btn-primary{
+    background-color: rgb(6, 64, 173);
+    border: none;
+}
+
 .card{
     border: none;
 }
@@ -40,7 +49,7 @@ li:hover{
     text-align: center;
     color: white;
     font-size: 28px;
-    padding: 25px;
+    padding: 27px;
     border-bottom: 1px solid white;
 }
 
