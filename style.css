@@ -15,7 +15,10 @@ html{
 
 #weather-display{
     color: white;
-    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid white;
 }
 
 .header{
