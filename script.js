@@ -125,6 +125,9 @@ $(document).ready(function(){
             $("#weather-display").append(forecastDiv);
             
             for(i = 0; i < 5; i++){
+
+                //Instead of using moment.js for the dates, I decided to try making my own functional calendar by code
+
                 if(Number.isInteger(year / 4) && month === "2"){
                     calendarDays.splice(29, 2);
                 }
