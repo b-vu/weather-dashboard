@@ -4,7 +4,7 @@
     
 The Weather Dashboard allows you to search any city for the current weather and the 5-day forecast. Using OpenWeatherMap's API, this application gives you accurate weather data including temperature, humidity, wind speed, and UV index. Utilizing local storage, your recent searches are saved and can be accessed the next time you return.
 
-Check out the application(and the local weather) [here](https://b-vu.github.io/weather-dashboard/).
+Check out the application (and the local weather) [here](https://b-vu.github.io/weather-dashboard/).
 
 ## Badges
 
