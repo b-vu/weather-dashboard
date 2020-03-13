@@ -6,7 +6,6 @@ The Weather Dashboard allows you to search any city for the current weather and 
 
 ## Badges
 
-![Dependencies Check](https://img.shields.io/david/b-vu/weather-dashboard?style=flat-square)
 ![Repository Size](https://img.shields.io/github/repo-size/b-vu/weather-dashboard?style=flat-square)
 ![Top Repository Language](https://img.shields.io/github/languages/top/b-vu/weather-dashboard?style=flat-square)
     
